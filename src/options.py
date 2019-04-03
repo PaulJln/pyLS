@@ -1,33 +1,59 @@
-def all_option(path):
-    print("this is all")
+import os
+from os import walk
 
 
-def recursive_option(path):
-    print("this is recursive")
+def all_option(files, directories, information, path):
+    print('all directories')
 
 
-def long_option(path):
-    print("this is long")
+def recursive_option(information, path):
+    print('this is recursive')
 
 
-def count_option(path):
-    print("this is count")
+def long_option(information, path):
+    print('this is long')
 
 
-def directory_option(path):
-    for value in path:
-        print("this is directory " + value)
+def count_option(information, path):
+    print('this is count')
 
 
-def reverse_option(path):
-    print("this is reverse")
+def directory_option(information, path):
+    print('this is directory ' + path)
 
 
-def manage_display(args_dic, path):
-    display = []
-    for key, value in args_dic.items():
-        if key != 'path' and value:
-            OPTION_MAP[key](display, path)
+def reverse_option(information, path):
+    print('this is reverse')
+
+
+def get_dirs_and_files(path):
+    files = []
+    directories = []
+
+    if not os.path.exists(path):
+        print('ERROR FILE OR DIRECTORY DOES NOT EXIST')
+
+    if os.path.isfile(path):
+        return path
+
+    for (dirPath, dirNames, fileNames) in walk(path):
+        files.extend([f for f in fileNames if not f[0] == '.'])
+        directories.extend([d for d in dirNames if not d[0] == '.'])
+        break
+
+    return [files, directories]
+
+
+def manage_options(args_dic, paths):
+    if not paths:
+        paths = '.'
+
+    for path in paths:
+        print(get_dirs_and_files(path))
+        information = []
+        for key, value in args_dic.items():
+            if key != 'paths' and value:
+                OPTION_MAP[key](information, path)
 
 
 OPTION_MAP = {

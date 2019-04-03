@@ -1,28 +1,30 @@
 import os
 from os import walk
+from typing import List
+from utils import Directory, File
 
 
 def all_option(files, directories, information, path):
     print('all directories')
 
 
-def recursive_option(information, path):
+def recursive_option(files, directories, information, path):
     print('this is recursive')
 
 
-def long_option(information, path):
+def long_option(files, directories, information, path):
     print('this is long')
 
 
-def count_option(information, path):
+def count_option(files, directories, information, path):
     print('this is count')
 
 
-def directory_option(information, path):
+def directory_option(files, directories, information, path):
     print('this is directory ' + path)
 
 
-def reverse_option(information, path):
+def reverse_option(files, directories, information, path):
     print('this is reverse')
 
 
@@ -37,19 +39,28 @@ def get_dirs_and_files(path):
         return path
 
     for (dirPath, dirNames, fileNames) in walk(path):
-        files.extend([f for f in fileNames if not f[0] == '.'])
-        directories.extend([d for d in dirNames if not d[0] == '.'])
+        for f in fileNames:
+            if not f[0] == '.':
+                files.append(File(f))
+        for d in dirNames:
+            if not d[0] == '.':
+                directories.append(Directory(d))
         break
 
+    for f in files:
+        print(f.name)
+    for d in directories:
+        print(d.name)
+    
     return [files, directories]
 
 
 def manage_options(args_dic, paths):
     if not paths:
         paths = '.'
-
+    print('PATHS = ' + paths)
     for path in paths:
-        print(get_dirs_and_files(path))
+        get_dirs_and_files(path)
         information = []
         for key, value in args_dic.items():
             if key != 'paths' and value:

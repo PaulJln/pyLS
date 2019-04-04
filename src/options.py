@@ -48,10 +48,10 @@ def get_dirs_and_files(path):
         break
 
     for f in files:
-        print(f.name)
+        print(f.get_name())
     for d in directories:
-        print(d.name)
-    
+        print(d.get_name())
+
     return [files, directories]
 
 

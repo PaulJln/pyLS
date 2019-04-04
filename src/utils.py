@@ -16,13 +16,13 @@ class Information:
 class Directory(Information):
     def __init__(self, name=''):
         super().__init__(name)
-        self.__nbFiles = 0
+        self.__nb_files = 0
 
     def get_nb_files(self):
-        return self.__nbFiles
+        return self.__nb_files
 
     def set_nb_files(self, nb_files):
-        self.__nbFiles = nb_files
+        self.__nb_files = nb_files
 
 
 class File(Information):

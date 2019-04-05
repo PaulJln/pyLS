@@ -23,23 +23,18 @@ def directory_option(root):
     ExplorerHelper.get_nb_files_in_dir(root)
 
 
-def display(root):
-    root.display()
-
-
 def manage_options(options_dic, paths, recursive, reverse):
     if not paths:
-        paths = '.'
+        paths.append('.')
     if reverse:
         paths.reverse()
     for path in paths:
-        if len(paths) > 1:
-            print(path + ':')
-        root = Directory(path, recursive, reverse)
+        root = Directory(path, path, recursive, reverse)
         get_dirs_and_files(root)
         for key, value in options_dic.items():
             if value:
                 OPTION_MAP[key](root)
+        root.display()
 
 
 OPTION_MAP = {

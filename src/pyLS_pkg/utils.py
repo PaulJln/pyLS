@@ -1,12 +1,16 @@
 class Information:
-    def __init__(self, name, size=0):
+    def __init__(self, name, path):
         self._name = name
-        self._size = size
+        self._size = 0
         self._display = []
         self._display.append(name)
+        self._path = path + '/' + name
 
     def get_name(self):
         return self._name
+
+    def get_path(self):
+        return self._path
 
     def get_display(self):
         return self._display
@@ -20,8 +24,8 @@ class Information:
 
 
 class Directory(Information):
-    def __init__(self, name, recursive, reverse):
-        super().__init__(name)
+    def __init__(self, name, path, recursive, reverse):
+        super().__init__(name, path)
         self.__nb_files = 0
         self.recursive = recursive
         self.reverse = reverse
@@ -58,9 +62,9 @@ class Directory(Information):
 
 
 class File(Information):
-    def __init__(self, name, size=0, nb_lines=0):
-        super().__init__(name, size)
-        self.__nb_lines = nb_lines
+    def __init__(self, name, path):
+        super().__init__(name, path)
+        self.__nb_lines = 0
 
     def get_nb_lines(self):
         return self.__nb_lines

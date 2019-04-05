@@ -19,8 +19,8 @@ def count_option(root):
 
 
 def directory_option(root):
-    root.get_files().clear()
-    ExplorerHelper.get_nb_files(root)
+    root.clear_files()
+    ExplorerHelper.get_nb_files_in_dir(root)
 
 
 def display(root):
@@ -30,13 +30,16 @@ def display(root):
 def manage_options(options_dic, paths, recursive, reverse):
     if not paths:
         paths = '.'
+    if reverse:
+        paths.reverse()
     for path in paths:
+        if len(paths) > 1:
+            print(path + ':')
         root = Directory(path, recursive, reverse)
         get_dirs_and_files(root)
         for key, value in options_dic.items():
             if value:
                 OPTION_MAP[key](root)
-        display(root)
 
 
 OPTION_MAP = {

@@ -25,15 +25,18 @@ class ExplorerHelper:
 
     @staticmethod
     def hidden_search(directory):
-        if not os.path.exists(directory.get_name()):
+        path = directory.get_name()
+        if not os.path.exists(path):
             print('ERROR FILE OR DIRECTORY DOES NOT EXIST')
-        for (dirPath, dirNames, fileNames) in walk(directory.get_name()):
+        for (dirPath, dirNames, fileNames) in os.walk(path):
+            print(dirNames)
             for f in fileNames:
                 if f[0] == '.':
                     directory.add_file(File(f))
             for d in dirNames:
                 if d[0] == '.':
                     directory.add_directory(Directory(d, directory.recursive, directory.reverse))
+            break
 
     @staticmethod
     def get_size(directory):
@@ -48,7 +51,7 @@ class ExplorerHelper:
             f.set_nb_lines(sum(1 for line in open(f.get_name())))
 
     @staticmethod
-    def get_nb_files(directory):
+    def get_nb_files_in_dir(directory):
         for d in directory.get_directories():
             d.set_nb_files(
                 len([name for name in os.listdir(d.get_name()) if os.path.isfile(os.path.join(d.get_name(), name))]))

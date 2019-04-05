@@ -3,6 +3,7 @@ class Information:
         self._name = name
         self._size = size
         self._display = []
+        self._display.append(name)
 
     def get_name(self):
         return self._name
@@ -14,19 +15,25 @@ class Information:
         return self._size
 
     def set_size(self, size):
+        self._display.append(size)
         self._size = size
 
 
 class Directory(Information):
     def __init__(self, name, recursive, reverse):
         super().__init__(name)
+        self.__nb_files = 0
         self.recursive = recursive
         self.reverse = reverse
         self.__directories = []
         self.__files = []
 
-    def get_nb_files(self):
-        return len(self.__files)
+    def __repr__(self):
+        return self._name
+
+    def set_nb_files(self, nb_files):
+        self._display.append(nb_files)
+        self.__nb_files = nb_files
 
     def get_directories(self):
         return self.__directories
@@ -36,11 +43,9 @@ class Directory(Information):
 
     def add_directory(self, directory):
         self.__directories.append(directory)
-        self._display.append(directory.get_name())
 
     def add_file(self, file):
         self.__files.append(file)
-        self._display.append(file.get_name())
 
     def clear_files(self):
         self.__files.clear()
@@ -49,7 +54,7 @@ class Directory(Information):
         display = self.__directories + self.__files
         display.sort(key=lambda inst: inst.get_name(), reverse=self.reverse)
         for d in display:
-            print(d.get_name())
+            print(*d.get_display(), sep=' ')
 
 
 class File(Information):
@@ -61,4 +66,5 @@ class File(Information):
         return self.__nb_lines
 
     def set_nb_lines(self, nb_lines):
+        self._display.append(nb_lines)
         self.__nb_lines = nb_lines

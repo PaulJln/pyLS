@@ -49,8 +49,8 @@ def manage_options(options_dic, paths, recursive, reverse):
         paths.append('.')
     return_value = split_dirs_files(paths, d)
     if reverse:
-        paths["files"].reverse()
-        paths["dirs"].reverse()
+        d["files"].reverse()
+        d["dirs"].reverse()
     files = manage_files(d["files"], options_dic)
     directories = manage_directories(d["dirs"], options_dic, recursive, reverse)
     display(files, directories)

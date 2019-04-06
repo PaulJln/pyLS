@@ -1,5 +1,5 @@
 import argparse
-from pyLS_pkg import managers
+from src.pyLS_pkg import managers
 
 
 def manage_args():
@@ -25,7 +25,8 @@ def manage_args():
     delattr(args, "Recursive")
     delattr(args, "paths")
 
-    managers.manage_options(args_dic, paths, recursive, reverse)
+    return_value = managers.manage_options(args_dic, paths, recursive, reverse)
+    exit(return_value)
 
 
 def main():

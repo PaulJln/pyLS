@@ -56,7 +56,7 @@ class Directory(Information):
 
     def display(self):
         display = self.__directories + self.__files
-        display.sort(key=lambda inst: inst.get_name(), reverse=self.reverse)
+        display.sort(key=lambda inst: inst.get_name().strip('.'), reverse=self.reverse)
         for d in display:
             print(*d.get_display(), sep=' ')
 

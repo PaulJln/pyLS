@@ -25,8 +25,6 @@ def manage_args():
     delattr(args, "Recursive")
     delattr(args, "paths")
 
-    print("OPTIONS : ", args_dic)
-
     options.manage_options(args_dic, paths, recursive, reverse)
 
 

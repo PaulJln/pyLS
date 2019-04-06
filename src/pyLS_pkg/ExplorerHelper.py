@@ -14,7 +14,7 @@ class ExplorerHelper:
                     directory.add_file(File(f, path + '/' + f))
             for d in dirNames:
                 if not d[0] == '.':
-                    directory.add_directory(Directory(d, path, directory.recursive, directory.reverse))
+                    directory.add_directory(Directory(d, path + '/' + d, directory.recursive, directory.reverse))
             break
 
     @staticmethod
@@ -27,7 +27,7 @@ class ExplorerHelper:
                     directory.add_file(File(f, path + '/' + f))
             for d in dirNames:
                 if d[0] == '.':
-                    directory.add_directory(Directory(d, path, directory.recursive, directory.reverse))
+                    directory.add_directory(Directory(d, path + '/' + d, directory.recursive, directory.reverse))
             break
 
     @staticmethod
@@ -42,7 +42,7 @@ class ExplorerHelper:
 
     @staticmethod
     def get_nb_lines(file):
-        file.set_nb_lines(sum(1 for line in open(file.get_path())))
+        file.set_nb_lines(sum(1 for line in open(file.get_path(), encoding="ISO-8859-1")))
 
     @staticmethod
     def get_nb_files_in_dir(directory):

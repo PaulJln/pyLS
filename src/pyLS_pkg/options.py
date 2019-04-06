@@ -45,6 +45,18 @@ def split_dirs_files(paths):
     return d
 
 
+def display_dir(directory, display_name_dir):
+    directories = directory.get_directories()
+    directories.sort(key=lambda inst: inst.get_name().strip('.'))
+    if display_name_dir or directory.recursive:
+        print(directory.get_path() + ':')
+    directory.display()
+    print()
+    if directory.recursive:
+        for i in range(len(directories)):
+            display_dir(directories[i], display_name_dir)
+
+
 def manage_display(files, directories):
     display_name_dir = False
 
@@ -57,12 +69,8 @@ def manage_display(files, directories):
     if len(files) > 0 or len(directories) > 1:
         display_name_dir = True
 
-    for i in range(len(directories)):
-        if display_name_dir or directories[i].recursive:
-            print(directories[i].get_path() + ':')
-        directories[i].display()
-        if i < len(directories) - 1:
-            print()
+    for d in directories:
+        display_dir(d, display_name_dir)
 
 
 def manage_files(files, options_dic):
@@ -78,15 +86,22 @@ def manage_files(files, options_dic):
     return file_list
 
 
+def resolve_dir(directory, options_dic):
+    get_dirs_and_files(directory)
+    for key, value in options_dic.items():
+        if value:
+            OPTION_MAP[key](directory)
+    if directory.recursive:
+        for d in directory.get_directories():
+            resolve_dir(d, options_dic)
+
+
 def manage_directories(directories, options_dic, recursive, reverse):
     dir_list = []
 
     for d in directories:
         directory = Directory('', d, recursive, reverse)
-        get_dirs_and_files(directory)
-        for key, value in options_dic.items():
-            if value:
-                OPTION_MAP[key](directory)
+        resolve_dir(directory, options_dic)
         dir_list.append(directory)
 
     return dir_list
@@ -99,9 +114,8 @@ def manage_options(options_dic, paths, recursive, reverse):
     if reverse:
         paths["files"].reverse()
         paths["dirs"].reverse()
-    print(paths)
     files = manage_files(paths["files"], options_dic)
-    directories = manage_directories(paths["dirs"], options_dic, recursive, reverse);
+    directories = manage_directories(paths["dirs"], options_dic, recursive, reverse)
     manage_display(files, directories)
 
 

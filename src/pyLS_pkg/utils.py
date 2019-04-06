@@ -4,7 +4,7 @@ class Information:
         self._size = 0
         self._display = []
         self._display.append(name)
-        self._path = path + '/' + name
+        self._path = path
 
     def get_name(self):
         return self._name
@@ -72,3 +72,6 @@ class File(Information):
     def set_nb_lines(self, nb_lines):
         self._display.append(nb_lines)
         self.__nb_lines = nb_lines
+
+    def display(self):
+        print(*self.get_display(), sep=' ')

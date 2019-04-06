@@ -5,6 +5,7 @@ from .File import File
 
 CODEC_ISO = "ISO-8859-1"
 
+
 class ExplorerHelper:
     @staticmethod
     def basic_search(instance):

@@ -14,7 +14,7 @@ optional arguments:
   -a, --all        Display additional hidden files or directories
   -R, --Recursive  Recursive display
   -l, --long       Display the size of files or directories
-  -c, --count      Display number of lines in the file
+  -c, --count      Display the number of lines in files
   -d, --directory  Display only directories, and the number of file in each
   -r, --reverse    Reverse the display order
 ```

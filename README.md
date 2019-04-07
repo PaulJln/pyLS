@@ -7,7 +7,7 @@
 usage: pyLS.py [-h] [-a] [-R] [-l] [-c] [-d] [-r] [paths [paths ...]]
 
 positional arguments:
-  paths            Directory path, can be a list of path
+  paths            Directory or file path, can be a list of path
 
 optional arguments:
   -h, --help       show this help message and exit
